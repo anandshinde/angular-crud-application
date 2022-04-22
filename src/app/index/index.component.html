@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <form #userForm>
+        <div class="card">
+          <div class="card-header">
+            <h2 class="text-center">User form</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-group">
+              <label for="username">Name</label>
+              <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" [(ngModel)]="email" name="email" id="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="phone">phone</label>
+              <input type="number" [(ngModel)]="phone" name="phone" id="phone" class="form-control">
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type='button' class='btn btn-block btn-success' (click)="addUser(userForm)"
+              *ngIf="isAddUser; else saveUser">Add User</button>
+            <ng-template #saveUser>
+              <button type='button' class='btn btn-block btn-success' (click)="saveUsers(ind)">Save User</button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-8">
+      <table class="table table-hovered table-striped table-bordered" *ngIf="userArr.length != 0; else alert_content">
+        <thead>
+          <tr>
+            <th>S.no</th>
+            <th class='cursor-point' (click)="sorting('name')">Name</th>
+            <th class='cursor-point' (click)="sorting('email')">Email</th>
+            <th class='cursor-point' (click)="sorting('phone')">Phone</th>
+            <th colspan="2" class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let users of userArr; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{users.name}}</td>
+            <td>{{users.email}}</td>
+            <td>{{users.phone}}</td>
+            <td><button class='btn btn-warning' type="button" name="btn-edit" id="btn-edit"
+                (click)="editUser(i)">Edit</button></td>
+            <td><button class='btn btn-danger' type="button" name="btn-delete" id="btn-delete"
+                (click)="deleteUser(i)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #alert_content>
+        <div class="alert alert-warning">
+          <div class="alert-header">
+            <h5>No Data found...</h5>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
